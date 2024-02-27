@@ -1,11 +1,13 @@
 from math import sqrt
 
+# O(n^1/2)
 def is_prime(n: int) -> bool:
     for i in range(2,int(round(sqrt(n) + 1))):
         if n % i == 0:
             return False
     return True
 
+# O(n^3/2)
 def is_semiprime_complex(n: int) -> bool:
     
     for i in range(2,int(round(sqrt(n)+1))):
@@ -17,18 +19,19 @@ def is_semiprime_complex(n: int) -> bool:
                     return True
     return False
 
+# O(n^1/2)
 def is_semiprime(n: int) -> bool:
-    trovato = False
+    found = False
     for i in range(2,int(round(sqrt(n)+1))):
         if n % i == 0:
-            if not trovato:
-                trovato = True
+            if not found:
+                found = True
             else:
                 return False
             
-    return trovato
+    return found
             
 
 if __name__ == '__main__':
-    print(is_semiprime_complex(int(15)))
-    print(is_semiprime(15))
+    print("Prima soluzione O(n^3/2):  ", is_semiprime_complex(int(15)))
+    print("Seconda soluzione O(n^1/2):", is_semiprime(15))
