@@ -13,11 +13,7 @@ Ad esempio: Per S = 1,0,2,8,0,5,1,6,0,0,3 e k = 8 la risposta deve essere 3
 '''
 
 def es2filR(ins:list[int],sogl:int,xIndex:int=0,yIndex:int=0)->int:
-        if yIndex != 0:
-            insy = ins[-yIndex:]
-        else:
-            insy = []
-        insiemeInEsame = ins[:xIndex]+ins[-yIndex:]
+        insiemeInEsame = ins[:xIndex]+ins[len(ins)-yIndex:]
         sommaInsiemeInEsame = sum(insiemeInEsame)
         zcout= 0
         if sommaInsiemeInEsame <= sogl and xIndex+yIndex<len(ins):
