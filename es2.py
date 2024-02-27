@@ -26,7 +26,7 @@ def es2(S: list[int], k:int ) -> int:
                 if max_z_cnt < z_cnt:
                     max_z_cnt = z_cnt
             z_cnt = 0
-            numbers = []
+            numbers.clear()
     return max_z_cnt
 
 if __name__ == '__main__':
