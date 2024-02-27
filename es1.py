@@ -1,4 +1,4 @@
-from math import sqrt
+from math import sqrt,ceil
 
 # O(n^1/2)
 def is_prime(n: int) -> bool:
@@ -6,6 +6,14 @@ def is_prime(n: int) -> bool:
         if n % i == 0:
             return False
     return True
+
+def is_primeR(n: int,start:int=2)->bool:
+    if start>ceil(sqrt(n)):
+        return True
+    if n % start != 0:
+        return is_primeR(n,start+1)
+    else:
+        return False
 
 # O(n^3/2)
 def is_semiprime_complex(n: int) -> bool:
@@ -33,6 +41,7 @@ def is_semiprime(n: int) -> bool:
             
 
 if __name__ == '__main__':
-    number = int(input("Selezionare input: "))
-    print("Prima soluzione O(n^3/2):  ", is_semiprime_complex(number))
-    print("Seconda soluzione O(n^1/2):", is_semiprime(number))
+    # number = int(input("Selezionare input: "))
+    # print("Prima soluzione O(n^3/2):  ", is_semiprime_complex(number))
+    # print("Seconda soluzione O(n^1/2):", is_semiprime(number))
+    print(is_primeR(11))
