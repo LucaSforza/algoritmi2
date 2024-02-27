@@ -17,9 +17,11 @@ def es2(S: list[int], k:int ) -> int:
             if x+y >= n:
                 break
             z_cnt += count_zero(S[:x])
-            z_cnt += count_zero(S[-y:]) 
+            if y != 0:
+                z_cnt += count_zero(S[-y:]) 
             numbers.extend(S[:x])
-            numbers.extend(S[-y:])
+            if y != 0:
+                numbers.extend(S[-y:])
             if sum(numbers) <= k:
                 if max_z_cnt < z_cnt:
                     max_z_cnt = z_cnt
