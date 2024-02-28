@@ -62,9 +62,9 @@ def es2filOn(ins:list[int],sogl:int)->int:
     somma = 0 
     xIndex = 0
     numeroDiZeri = 0
-    for x in range(1,lenIns):
-        somma += ins[x-1]
-        if ins[x-1] == 0:
+    for x in range(lenIns):
+        somma += ins[x]
+        if ins[x] == 0:
             numeroDiZeri+=1
         xIndex = x 
         if somma <= sogl and x<lenIns:
@@ -72,19 +72,28 @@ def es2filOn(ins:list[int],sogl:int)->int:
         else:
             break
 
-    for y in range(1,lenIns):
-        if somma <= sogl:
-            controlloDx = ins[lenIns-y:]
-            somma += ins[lenIns-y-1]
-            if somma <= sogl and xIndex+y<lenIns:
-                numZero = controlloDx.count(0)
-                maxNumZero = max(numZero,maxNumZero)
-            else:
-                continue
-        else:
+    for y in range(lenIns):
+        if xIndex==lenIns-y-1:
+            somma -= ins[xIndex]
+            if ins[xIndex]==0:
+                numeroDiZeri-=1
             xIndex-=1
-
-
+            if xIndex == -1:
+                return maxNumZero
+        somma += ins[lenIns-y-1]
+        if ins[lenIns-y-1]==0:
+                numeroDiZeri+=1
+        
+        
+        if somma <= sogl:
+            maxNumZero = max(numeroDiZeri,maxNumZero)
+        else:
+            somma -= ins[xIndex]
+            xIndex-=1
+            if xIndex == -1:
+                return maxNumZero
+            y-=1
+        
         
             
 
@@ -95,6 +104,10 @@ def es2filOn(ins:list[int],sogl:int)->int:
 
 if __name__ == '__main__':
     lista = [1,0,2,8,0,5,1,6,0,0,3]
+   # lista = [0,0,0,0,0,0]
+
     k = 8
     print("Soluzione Luca:    ",es2(lista,k))
     print("Soluzione Filippo: ",es2filR(lista,k))
+    print("Soluzione O(n) Filippo: ",es2filOn(lista,k))
+
