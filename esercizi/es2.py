@@ -43,7 +43,7 @@ Ad esempio: Per S = 1,0,2,8,0,5,1,6,0,0,3 e k = 8 la risposta deve essere 3
 • L’algoritmo deve avere complessit`a O(n2).
 • L’algoritmo deve avere complessit`a O(n log n). • L’algoritmo deve avere complessit`a O(n)
 '''
-
+# ricorsivo
 def es2filR(ins:list[int],sogl:int,xIndex:int=0,yIndex:int=0)->int:
         insiemeInEsame = ins[:xIndex]+ins[len(ins)-yIndex:]
         sommaInsiemeInEsame = sum(insiemeInEsame)
@@ -55,6 +55,42 @@ def es2filR(ins:list[int],sogl:int,xIndex:int=0,yIndex:int=0)->int:
             zc = insiemeInEsame.count(0)
             zcout = max(zc,maxFigli)
         return zcout
+
+def es2filOn(ins:list[int],sogl:int)->int:
+    maxNumZero = 0
+    lenIns = len(ins)
+    somma = 0 
+    xIndex = 0
+    numeroDiZeri = 0
+    for x in range(1,lenIns):
+        somma += ins[x-1]
+        if ins[x-1] == 0:
+            numeroDiZeri+=1
+        xIndex = x 
+        if somma <= sogl and x<lenIns:
+            maxNumZero = max(numeroDiZeri,maxNumZero)
+        else:
+            break
+
+    for y in range(1,lenIns):
+        if somma <= sogl:
+            controlloDx = ins[lenIns-y:]
+            somma += ins[lenIns-y-1]
+            if somma <= sogl and xIndex+y<lenIns:
+                numZero = controlloDx.count(0)
+                maxNumZero = max(numZero,maxNumZero)
+            else:
+                continue
+        else:
+            xIndex-=1
+
+
+        
+            
+
+
+
+
 
 
 if __name__ == '__main__':
