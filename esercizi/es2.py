@@ -29,6 +29,24 @@ def es2(S: list[int], k:int ) -> int:
             numbers.clear()
     return max_z_cnt
 
+def es2_new(S: list[int], k:int) -> int:
+    x = 0
+    y = len(S)
+    z_cnt = 0
+    max_z_cnt = 0
+    summ = 0
+    for x in range(len(S)):
+        if S[x] == 0:
+            z_cnt += 1
+        summ += S[x]
+        if summ > k:
+            summ -= S[x]
+    max_z_cnt = z_cnt
+    
+    for in y in reversed(range(len(S))):
+        pass
+        
+
 
 '''
 Abbiamo una sequenza S di n interi ed una soglia k. Possiamo selezionare x elementi 
