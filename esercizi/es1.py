@@ -41,7 +41,6 @@ def is_semiprime(n: int) -> bool:
             
 
 if __name__ == '__main__':
-    # number = int(input("Selezionare input: "))
-    # print("Prima soluzione O(n^3/2):  ", is_semiprime_complex(number))
-    # print("Seconda soluzione O(n^1/2):", is_semiprime(number))
-    print(is_primeR(11))
+    number = int(input("Selezionare input: "))
+    print("Prima soluzione O(n^3/2):  ", is_semiprime_complex(number))
+    print("Seconda soluzione O(n^1/2):", is_semiprime(number))
