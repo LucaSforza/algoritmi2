@@ -29,6 +29,50 @@ def es2(S: list[int], k:int ) -> int:
             numbers.clear()
     return max_z_cnt
 
+def es2_new(S: list[int], k:int) -> int:
+    y = len(S)
+    max_z_cnt = 0
+    summ = 0
+    for x in range(len(S)):
+        if S[x] == 0:
+            max_z_cnt += 1
+        summ += S[x]
+        if summ > k:
+            summ -= S[x]
+            x -= 1
+            break
+    
+    z_cnt = max_z_cnt
+    for y in reversed(range(len(S))):
+
+        if x == y:
+            x -= 1
+            if x == -1:
+                if max_z_cnt > z_cnt:
+                    return max_z_cnt
+                return z_cnt
+            if S[x] == 0:
+                if z_cnt > max_z_cnt:
+                    max_z_cnt = z_cnt
+                z_cnt -= 1
+            summ -= S[x]
+
+        summ += S[y]
+        if S[y] == 0:
+            z_cnt += 1
+
+        if summ > k:
+            x -= 1
+            if x == -1:
+                if max_z_cnt > z_cnt:
+                    return max_z_cnt
+                return z_cnt
+            if S[x] == 0:
+                if z_cnt > max_z_cnt:
+                    max_z_cnt = z_cnt
+                z_cnt -= 1
+            summ -= S[x]
+        
 
 '''
 Abbiamo una sequenza S di n interi ed una soglia k. Possiamo selezionare x elementi 
@@ -60,5 +104,6 @@ def es2filR(ins:list[int],sogl:int,xIndex:int=0,yIndex:int=0)->int:
 if __name__ == '__main__':
     lista = [1,0,2,8,0,5,1,6,0,0,3]
     k = 8
-    print("Soluzione Luca:    ",es2(lista,k))
-    print("Soluzione Filippo: ",es2filR(lista,k))
+    print("Soluzione O(n^3) Luca:    ",es2(lista,k))
+    print("Soluzione <complessità da dimostrare> Filippo: ",es2filR(lista,k))
+    print("Soluzione O(n) di Luca: ",es2_new(lista,k))
