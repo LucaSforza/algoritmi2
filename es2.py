@@ -1,3 +1,35 @@
+
+def count_zero(l:list[int]) -> int:
+    result = 0
+    for i in l:
+        if i == 0:
+            result+=1
+    return result
+
+# O(n^3)
+def es2(S: list[int], k:int ) -> int:
+    n = len(S)
+    max_z_cnt = 0
+    z_cnt = 0
+    numbers = []
+    for y in range(n):
+        for x in range(n):
+            if x+y >= n:
+                break
+            z_cnt += count_zero(S[:x])
+            if y != 0:
+                z_cnt += count_zero(S[-y:]) 
+            numbers.extend(S[:x])
+            if y != 0:
+                numbers.extend(S[-y:])
+            if sum(numbers) <= k:
+                if max_z_cnt < z_cnt:
+                    max_z_cnt = z_cnt
+            z_cnt = 0
+            numbers.clear()
+    return max_z_cnt
+
+
 '''
 Abbiamo una sequenza S di n interi ed una soglia k. Possiamo selezionare x elementi 
 a sinistra di S e y elementi a destra di S a patto che risulti x+y <= n e la somma 
@@ -25,5 +57,8 @@ def es2filR(ins:list[int],sogl:int,xIndex:int=0,yIndex:int=0)->int:
         return zcout
 
 
-ins1 = [1,0,2,8,0,5,1,6,0,0,3]
-print(es2filR(ins1,8))
+if __name__ == '__main__':
+    lista = [1,0,2,8,0,5,1,6,0,0,3]
+    k = 8
+    print("Soluzione Luca:    ",es2(lista,k))
+    print("Soluzione Filippo: ",es2filR(lista,k))
