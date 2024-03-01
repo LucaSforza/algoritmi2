@@ -17,8 +17,31 @@ G = [
     [12], # 16 -> 13
 ]
 
-def es7(L: list[list[int]]) -> int:
-    pass
+V = [0 for _ in range(len(G))]
+
+def es7(L: list[list[int]],V) -> int:
+    count = 0
+    for i in range(len(L)):
+        if V[i] == 0 and is_tree(i,None,L,V):
+            count += 1
+    return count
+
+def is_tree(u: int,p: int, L: list[list[int]], V: list[int]) -> bool:
+    found = True
+    V[u] += 1
+    for x in L[u]:
+        if V[x] == 0:
+            found = found and is_tree(x,u,L,V)
+        elif x != p:
+            return False
+    return found
+
+
+def DFS(u: int, L: list[list[int]], V: list[int]):
+    V[u] = True
+    for x in L[u]:
+        if not V[x]:
+            DFS(x,L,V)
 
 if __name__ == '__main__':
-    print(es7(G))
+    print(es7(G,V))
