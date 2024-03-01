@@ -59,7 +59,7 @@ def es2_new(S: list[int], k:int) -> int:
         if S[y] == 0:
             z_cnt += 1
 
-        if summ > k:
+        while summ > k:
             x -= 1
             if x == -1:
                 if max_z_cnt > z_cnt:
@@ -70,6 +70,7 @@ def es2_new(S: list[int], k:int) -> int:
                     max_z_cnt = z_cnt
                 z_cnt -= 1
             summ -= S[x]
+    assert False, "Qualcosa è vermante andato storto"
         
 
 '''
