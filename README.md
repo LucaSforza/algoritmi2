@@ -1,8 +1,7 @@
 
-# Gauss Elimination Algorithm
+# Algoritmi
 
-Semplice algoritmo in python per l'eliminazione di Gauss
-
+soluzioni algoritmi del corso Algoritmi 1 e 2 della sapienza anno 2023/2024
 
 
 ## Come eseguire i test
@@ -22,7 +21,7 @@ poetry install
 E come ultima cosa fare il comando nella directory del progetto
 
 ```bash
-poetry run pytest testCongruence.py testGauss.py
+poetry run pytest ./algo2/batteria1/es2/es2_test.py
 ```
 
 per eseguire i test

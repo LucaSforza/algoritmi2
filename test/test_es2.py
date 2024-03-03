@@ -1,4 +1,5 @@
-from es2_f import *
+
+from  ..algo2.batteria1.es2.es2_f import es2filOn, es2filR
 
 k = 8
 
@@ -15,7 +16,12 @@ t10 = [0,4,0,0,0,0,0,0,0,4,0]
 t11 = [0,8,0,0,0,0,0,0,0,8,0]
 t12 = [0,9,0,0,0,0,0,0,0,9,0]
 t13 = [0,0,0,0,0,9,0,0,0,0,0]
-es2filR
-def test_inversematrix():
+
+
+def test_es2filOn():
     expected = es2filOn(t1,k)
+    assert expected == 3
+    
+def test_es2filR():
+    expected = es2filR(t1,k)
     assert expected == 3
