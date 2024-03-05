@@ -13,12 +13,13 @@ G = [
 ]
 
 def count_pozzo(u: int, L: list[list[int]], V: list[int]):
-    V[u] = True
-    count = 0
+    V[u - 1] = True
+    if len(L[u]) == 0:
+        count = 1
+    else:
+        count = 0
     for x in L[u]:
         if not V[x]:
-            if len(L[x]) == 0:
-                count += 1
             count += count_pozzo(x,L,V)
     return count
 
