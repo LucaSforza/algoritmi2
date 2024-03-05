@@ -36,6 +36,16 @@ def is_tree(u: int,p: int, L: list[list[int]], V: list[int]) -> bool:
             return False
     return found
 
+def conta_cicli(u: int, L: list[list[int]], V: list[int]):
+    count = 0
+    
+    V[u] = True
+    for x in L[u]:
+        if not V[x]:
+            count += conta_cicli(x,L,V)
+        else: count += 1
+    return count
+
 
 def DFS(u: int, L: list[list[int]], V: list[int]):
     V[u] = True
@@ -45,3 +55,4 @@ def DFS(u: int, L: list[list[int]], V: list[int]):
 
 if __name__ == '__main__':
     print(es7(G,V))
+    conta_cicli()
