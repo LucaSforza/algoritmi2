@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "algorimti 2"
+version = "0.1.0"
+description = "soluzione algoritmi del corso di Progettazione di Algoritmi sapienza canale M-Z"
+authors = ["Luca Sforza <lucasforza1234@icloud.com>", "Filippo Onofri <filippo.onofri46@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
