@@ -76,6 +76,27 @@ def es5(n)->int:
         t-=2
     return t
 
+# algoritmo di ricerca 
+# complessita H(n)
+
+def Ricerca(A:list[int],x:int)->int:
+    for i in range(len(A)):
+        if A[i]==x : return i
+    return None
+
+# la lista A deve essere ordinata 
+# complessita H(log(n))
+def ricercaBinaria(A:list[int],n:int)->int:
+    a,b = 0,len(n)-1
+    while a <= b:
+        m = (a+b)//2
+        if A[m] == n : True 
+        if A[m]>n: b = m-1
+        else:
+            a = m+1
+    return False
+
+
 
 
 
