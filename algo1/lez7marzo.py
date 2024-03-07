@@ -40,7 +40,41 @@ def es3(n):
         r+=3*x
     return r
 
+# complessita H(log(n))
+def es3(n)->int:
+    n = abs(n)
+    x = r = 0
+    while n>1:
+        r+=2
+        n = n//3
+    return r
 
+
+# complessita H(log(log(n)))
+# all prima iterazione fa 2 alla seconda iterazione diventa 2^2
+# alla terza itaerazione diventa 2^2*2^2 e cosi  via 
+# p = 2^2^i circa uguale n
+
+def es4(n):
+    n = abs(n)
+    p=2
+    while n>p:
+        p = p*p
+    return p
+
+# complessita di H(1) per le prime due iustruzioni
+# complessita di H(n) per il for 
+# complessita di H(3^n) per il while 
+# alla fine la complessita e H(1) + H(n) + H(3^n) = H(3^n)
+
+def es5(n)->int:
+    n = abs(n)
+    t = x = 1
+    for i in range(n): t=3*t  # H(n)
+    while t > x:              # H(3^n)
+        x+=2
+        t-=2
+    return t
 
 
 
