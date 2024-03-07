@@ -1,10 +1,8 @@
-# es3
-```python
-for 
+# es3 a 
+    Dimostrare che in un grafo connesso G ci sono sempre almeno due vertici
+    che hanno lo stesso grado.
 
-```
-- (a) Dimostrare che in un grafo connesso G ci sono sempre almeno due vertici
-che hanno lo stesso grado.
+![es3_1](./img/es3_1.png)
 
     prendiamo i gradi di un grafo non orientato che possono variare da 0 a n-1, 
     il grafo essendo connesso varia da 1 a n-1 perche nessun nodo puo avere grado 0
@@ -12,22 +10,23 @@ che hanno lo stesso grado.
     all'penultimo dove opgni nodo ha un grado diverso , e l'ultimo sicuramente avra 
     un grado come uno dei precedenti
 
-—l’affermazione ‘e ancora valida nel caso in cui il grafo non sia connesso?
+# l’affermazione ‘e ancora valida nel caso in cui il grafo non sia connesso?
 
     il principio funziona anche se il grafo e sconnesso perche i possibili ordini 
     variano da 0 a n-2 perche essendoci almeno un nodo sconnesso nessun nodo ha 
     ordine n-1
 
-(b) Dimostrare che se tutti i vertici di un grafo G hanno grado almeno due
-allora nel grafo G c’‘e almeno un ciclo.
-Se il grado di ogni vertice ‘e esattamente due, si pu‘o a↵ermare che G e un
-ciclo?
+# es3 b
+
+    Dimostrare che se tutti i vertici di un grafo G hanno grado almeno due allora nel grafo G c’‘e almeno un ciclo.
+    Se il grado di ogni vertice ‘e esattamente due, si pu‘o a↵ermare che G e un
+    ciclo?
 
 
-es4
+# es4
 
-Dimostrare che ogni grafo connesso contiene un vertice la cui rimozione
-non sconnette il grafo
+    Dimostrare che ogni grafo connesso contiene un vertice la cui rimozione
+    non sconnette il grafo
 
     se il grafo ha un nodo di ordine 1 posso rimuovere quello e il grafo non si sconnette
     da dimostrare che con l'albero di un DFS togliendo una sua foglia non sconnetto il grafo
