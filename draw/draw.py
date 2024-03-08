@@ -14,59 +14,58 @@ def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     return grafo
 
 def drawNetGraf(grafo):
-    nx.draw(grafo)
+    nx.draw(grafo,with_labels=True,
+            node_size = 2500,
+            font_size = 25
+            )
+    plt.margins(0.2)
     plt.show()
     return
 
 def inputGrafoEdgeList():
     grafo = nx.Graph()
-    print("inserisci gli archi prima il nodo di partenza spazio nodo di arrivo quando hai finito scrivi 'fine'")
+    print("inserisci gli archi prima il nodo di partenza spazio nodo di arrivo ->nodo nodo")
+    print("quando hai finito scrivi -> fine")
     print('per rimuovere un nodi scrivere (del num num) ')
-    inseritoTutto = False
-    while inseritoTutto:
-        print("nodi inseriti:"+str(grafo.number_of_nodes))
-        print("archi inseriti:"+str(grafo.number_of_edges))
-        print('ultimo arco aggiunto: '+str(arc))
+    arc = None
+    inserito = True
+    lastInputFailed = False
+    lastInputElimined = False
+    while inserito:
+        print("nodi inseriti:"+str(len(grafo.nodes)))
+        print("archi inseriti:"+str(len(grafo.edges)))
+        if lastInputElimined:
+            print('ultimo arco rimosso: '+str(arc))
+            lastInputElimined = False
+        else:
+            print('ultimo arco aggiunto: '+str(arc))
+        if lastInputFailed:
+            print('inserici un arco che è costituito due stringhe separate da uno spazio')
+            lastInputFailed = False
         arco = input()
         if arco == 'fine':
-            return grafo
+            inserito = False
+        elif arco[0:3]=="del":
+            arc = arco[4:]
+            arc.split(' ')
+            grafo.remove_edge(arc[0],arc[1])
+            lastInputElimined = True
         else:
             arc = arco.split(' ')
-            if arc[0] not in list(grafo.nodes):
-                grafo.add_node(arc[0])
-            if arc[1] not in list(grafo.nodes):
-                grafo.add_node(arc[1])
-            grafo.add_edge(arc[0],arc[1])
+            if len(arc)!=2:
+                lastInputFailed = True
+            else:
+                if arc[0] not in grafo.nodes:
+                    grafo.add_node(arc[0])
+                if arc[1] not in grafo.nodes:
+                    grafo.add_node(arc[1])
+                grafo.add_edge(arc[0],arc[1])
+    return grafo
 
-drawNetGraf(edgeListToNetGraf(edgeList))
-# G = nx.Graph()
-# G.add_node(0)
-# G.add_node(1)
-# G.add_node(2)
-# G.add_node(3)
-# G.add_edge(0,1)
-# G.add_edge(2,1)
-# G.add_edge(3,1)
-# nx.draw(G)
-# plt.show()
+#drawNetGraf(edgeListToNetGraf(edgeList))
 
+#a = inputGrafoEdgeList()
 
-#drawGrafo(edgeList)
-# drawGrafo(G)
-
-
-
-# G = nx.Graph()
-# #DG = nx.DiGraph()
-# #G.add_edges_from([("A","B"),("A","C"),("C","B")])
-# G.add_edge((0,1))
-# G.add_edge((2,1))
-# G.add_edge((3,1))
-# #DG.add_edges_from([(0,1),(1,2),(2,3),(3,0),(0,3)])
-# H = nx.path_graph(10)
-# G.add_nodes_from(H)
-# pos = nx.spring_layout(G)
-# nx.draw_networkx_nodes(G,pos,node_size=500)
-# nx.draw_networkx_edges(G,pos,edgelist=G.edges(),edge_color='black')
-# nx.draw_networkx_labels(G,pos)
-# plt.show()
+b = edgeListToNetGraf([(1,2),(2,3)])
+print(b.has_edge(1,2))
+drawNetGraf(b)
