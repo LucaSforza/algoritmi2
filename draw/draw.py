@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     """
     Converte una lista di archi in un grafo networkx.
@@ -90,5 +91,41 @@ def inputGrafoEdgeList():
                 grafo.add_edge(arcs[0], arcs[1])
     return grafo
 
+def netGrafToListAdiacenzaList(grafo:nx.Graph)->list[list[int]]:
+    dizTradIndexToNodo = dict()    
+    dizTradNodotoIndex = dict()    
+    nodi = list(grafo.nodes())
+    listGrafOut = []
+    for index,nodo in enumerate(nodi):
+        dizTradIndexToNodo[index] = nodo
+        dizTradNodotoIndex[nodo] = index
+        listGrafOut.append(list())
+    archi = list(grafo.edges())
+    print(archi)
+    for arco in archi:
+        listGrafOut[dizTradNodotoIndex[arco[0]]].append(dizTradNodotoIndex[arco[1]])
+        listGrafOut[dizTradNodotoIndex[arco[1]]].append(dizTradNodotoIndex[arco[0]])
+    print(listGrafOut)
+    return listGrafOut
 
+def netGrafToListAdiacenzaSet(grafo:nx.Graph)->list[list[int]]:
+    dizTradIndexToNodo = dict()    
+    dizTradNodotoIndex = dict()    
+    nodi = list(grafo.nodes())
+    listGrafOut = []
+    for index,nodo in enumerate(nodi):
+        dizTradIndexToNodo[index] = nodo
+        dizTradNodotoIndex[nodo] = index
+        listGrafOut.append(set())
+    archi = list(grafo.edges())
+    print(archi)
+    for arco in archi:
+        listGrafOut[dizTradNodotoIndex[arco[0]]].add(dizTradNodotoIndex[arco[1]])
+        listGrafOut[dizTradNodotoIndex[arco[1]]].add(dizTradNodotoIndex[arco[0]])
+    print(listGrafOut)
+    return listGrafOut
+
+netGr = edgeListToNetGraf([("A","B"),("A","C"),("A","D"),("C","D")])
+#drawNetGraf(netGr)
+netGrafToListAdiacenzaList(netGr)
 #drawNetGraf(inputGrafoEdgeList())
