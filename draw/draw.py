@@ -91,3 +91,6 @@ def inputGrafoEdgeList():
                     grafo.add_node(arcs[1])
                 grafo.add_edge(arcs[0], arcs[1])
     return grafo
+
+
+#drawNetGraf(inputGrafoEdgeList())
