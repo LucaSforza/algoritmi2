@@ -1,7 +1,5 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from strut import *
-
 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     """
