@@ -1,3 +1,9 @@
+
+'''
+per il momento inutile
+'''
+
+
 class Nodo:
     def __init__(self,numero:int):
         self.numero:int
