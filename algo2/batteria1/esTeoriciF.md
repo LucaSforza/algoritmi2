@@ -26,6 +26,25 @@
 
 #
 # es 5
+![es5](../img/es5.png)
+
+# (a)
+    un grafo con n=nNodi nodi tutti di grado k=ordNodi avrà nArchi = (nNodi*ordNodi)/2 
+
+    un grafo con tutti i nodi di grado k=ordNodi | ordNodi = (nArchi*2)/nNodi
+
+# (b)
+    da rivedere bene 
+
+## es 6
+
+![es5](../img/es6.png)
+## risposta
+![risposta](../img/risp_es_6.jpeg)
+
+
+
+
 
 
 
