@@ -1,8 +1,8 @@
-def ricerca(grafo:list[list[int]], nodoCorrente,lastNodeVisited, visitati:list[int], counterComponenti:int,isAlbero:bool=True):
+def ricerca(grafo:list[list[int]], nodoCorrente,lastNodeVisited, visitati:list[int], counterComponenti:int,isAlbero:bool=True)->bool,list[int]:
     visitati[nodoCorrente] = counterComponenti
     isAlberor = True
     for nodo in grafo[nodoCorrente]:
-        if visitati[nodo]!=0 and (lastNodeVisited==None or nodo!=lastNodeVisited):
+        if visitati[nodo]!=0 and nodo!=lastNodeVisited:
             isAlbero = False
         if visitati[nodo]==0:
             isAlberor,visitati = ricerca(grafo,nodo,nodoCorrente,visitati,counterComponenti)
