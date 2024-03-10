@@ -1,4 +1,6 @@
 import networkx as nx
+import pickle
+import os
 import matplotlib.pyplot as plt
 
 # mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
@@ -31,15 +33,20 @@ def drawNetGraf(grafo):
     Ritorna:
     None
     '''
-    nx.draw(grafo, with_labels=True,
-        node_size=2500,
-        font_size=25
+    nx.draw_networkx(grafo,
+        with_labels=True,
+        node_size=200,
+        font_size=10,
+        linewidths = 0.5,
+        font_color='black',
+        node_color='yellow',
+        edge_color='black',
+        width=4,
+        pos=nx.spring_layout(grafo)
         )
     plt.margins(0.2)
     plt.show()
     return
-
-
 
 def inputGrafoEdgeList():
     '''
@@ -101,14 +108,12 @@ def netGrafToListAdiacenzaList(grafo:nx.Graph)->list[list[int]]:
         dizTradNodotoIndex[nodo] = index
         listGrafOut.append(list())
     archi = list(grafo.edges())
-    print(archi)
     for arco in archi:
         listGrafOut[dizTradNodotoIndex[arco[0]]].append(dizTradNodotoIndex[arco[1]])
         listGrafOut[dizTradNodotoIndex[arco[1]]].append(dizTradNodotoIndex[arco[0]])
-    print(listGrafOut)
     return listGrafOut
 
-def netGrafToListAdiacenzaSet(grafo:nx.Graph)->list[list[int]]:
+def netGrafToListAdiacenzaSet(grafo:nx.Graph)->list[set[int]]:
     dizTradIndexToNodo = dict()    
     dizTradNodotoIndex = dict()    
     nodi = list(grafo.nodes())
@@ -118,14 +123,47 @@ def netGrafToListAdiacenzaSet(grafo:nx.Graph)->list[list[int]]:
         dizTradNodotoIndex[nodo] = index
         listGrafOut.append(set())
     archi = list(grafo.edges())
-    print(archi)
     for arco in archi:
         listGrafOut[dizTradNodotoIndex[arco[0]]].add(dizTradNodotoIndex[arco[1]])
         listGrafOut[dizTradNodotoIndex[arco[1]]].add(dizTradNodotoIndex[arco[0]])
-    print(listGrafOut)
     return listGrafOut
 
-netGr = edgeListToNetGraf([("A","B"),("A","C"),("A","D"),("C","D")])
-#drawNetGraf(netGr)
-netGrafToListAdiacenzaList(netGr)
-#drawNetGraf(inputGrafoEdgeList())
+def saveGraphToFile(grafo, filename):
+    """
+    Salva un grafo in un file pickle nella cartella 'saved'.
+
+    Parametri:
+    - grafo: Il grafo da salvare.
+    - filename: Il nome del file pickle.
+
+    Ritorna:
+    None
+    """
+    if type(grafo) == nx.Graph:
+        filename = filename +'_'+ 'networkx'
+    else:
+        filename = filename +'_'+ type(grafo)
+    filepath = f"draw/saved/{filename}.pickle"
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    with open(filepath, "wb") as file:
+        pickle.dump(grafo, file)
+    print(f"Graph saved to {filepath}")
+
+def loadGraphFile(filename):
+    """
+    Cerca un file nella cartella 'draw/saved' e lo ritorna.
+
+    Parametri:
+    - filename: Il nome del file da cercare.
+
+    Ritorna:
+    - grafo: Il grafo caricato dal file pickle.
+    """
+    filepath = f"draw/saved/{filename}.pickle"
+    if os.path.exists(filepath):
+        with open(filepath, "rb") as file:
+            grafo = pickle.load(file)
+        return grafo
+    else:
+        print(f"File {filename} not found.")
+        return None
