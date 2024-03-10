@@ -1,8 +1,9 @@
 import networkx as nx
+import pickle
+import os
 import matplotlib.pyplot as plt
-from strut import *
 
-
+# mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     """
     Converte una lista di archi in un grafo networkx.
@@ -32,15 +33,20 @@ def drawNetGraf(grafo):
     Ritorna:
     None
     '''
-    nx.draw(grafo, with_labels=True,
-        node_size=2500,
-        font_size=25
+    nx.draw_networkx(grafo,
+        with_labels=True,
+        node_size=200,
+        font_size=10,
+        linewidths = 0.5,
+        font_color='black',
+        node_color='yellow',
+        edge_color='black',
+        width=4,
+        pos=nx.spring_layout(grafo)
         )
     plt.margins(0.2)
     plt.show()
     return
-
-
 
 def inputGrafoEdgeList():
     '''
@@ -82,15 +88,84 @@ def inputGrafoEdgeList():
             lastInputElimined = True
         else:
             arcs = arco.split(" ")
-            if len(arcs) != 2:
-                lastInputFailed = True
-            else:
+            if len(arcs) == 2:
                 if arcs[0] not in grafo.nodes:
                     grafo.add_node(arcs[0])
                 if arcs[1] not in grafo.nodes:
                     grafo.add_node(arcs[1])
                 grafo.add_edge(arcs[0], arcs[1])
+            elif len(arcs) == 1:
+                grafo.add_node(arcs[0])
+            else:
+                lastInputFailed = True
     return grafo
 
+def netGrafToListAdiacenzaList(grafo:nx.Graph)->list[list[int]]:
+    dizTradIndexToNodo = dict()    
+    dizTradNodotoIndex = dict()    
+    nodi = list(grafo.nodes())
+    listGrafOut = []
+    for index,nodo in enumerate(nodi):
+        dizTradIndexToNodo[index] = nodo
+        dizTradNodotoIndex[nodo] = index
+        listGrafOut.append(list())
+    archi = list(grafo.edges())
+    for arco in archi:
+        listGrafOut[dizTradNodotoIndex[arco[0]]].append(dizTradNodotoIndex[arco[1]])
+        listGrafOut[dizTradNodotoIndex[arco[1]]].append(dizTradNodotoIndex[arco[0]])
+    return listGrafOut
 
-#drawNetGraf(inputGrafoEdgeList())
+def netGrafToListAdiacenzaSet(grafo:nx.Graph)->list[set[int]]:
+    dizTradIndexToNodo = dict()    
+    dizTradNodotoIndex = dict()    
+    nodi = list(grafo.nodes())
+    listGrafOut = []
+    for index,nodo in enumerate(nodi):
+        dizTradIndexToNodo[index] = nodo
+        dizTradNodotoIndex[nodo] = index
+        listGrafOut.append(set())
+    archi = list(grafo.edges())
+    for arco in archi:
+        listGrafOut[dizTradNodotoIndex[arco[0]]].add(dizTradNodotoIndex[arco[1]])
+        listGrafOut[dizTradNodotoIndex[arco[1]]].add(dizTradNodotoIndex[arco[0]])
+    return listGrafOut
+
+def saveGraphToFile(grafo, filename):
+    """
+    Salva un grafo in un file pickle nella cartella 'saved'.
+
+    Parametri:
+    - grafo: Il grafo da salvare.
+    - filename: Il nome del file pickle.
+
+    Ritorna:
+    None
+    """
+    if type(grafo) == nx.Graph:
+        filename = filename +'_'+ 'networkx'
+    else:
+        filename = filename +'_'+ type(grafo)
+    filepath = f"draw/saved/{filename}.pickle"
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    with open(filepath, "wb") as file:
+        pickle.dump(grafo, file)
+    print(f"Graph saved to {filepath}")
+
+def loadGraphFile(filename):
+    """
+    Cerca un file nella cartella 'draw/saved' e lo ritorna.
+
+    Parametri:
+    - filename: Il nome del file da cercare.
+
+    Ritorna:
+    - grafo: Il grafo caricato dal file pickle.
+    """
+    filepath = f"draw/saved/{filename}.pickle"
+    if os.path.exists(filepath):
+        with open(filepath, "rb") as file:
+            grafo = pickle.load(file)
+        return grafo
+    else:
+        print(f"File {filename} not found.")
+        return None
