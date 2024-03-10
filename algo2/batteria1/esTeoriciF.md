@@ -1,23 +1,43 @@
+
+![es1](../img/md/es1.png)
+
+```python
+from math import sqrt
+
+def isPrime(n:int)->bool:
+    for num in range(2, round(sqrt(n))+1):
+        if n % num == 0:
+            return False
+    return True
+
+
+def generatePrime(n:int)->list[int]:
+    primeList = []
+    for num in range(2, round(sqrt(n))+1):
+        if isPrime(num):
+            primeList.append(num)
+    return primeList
+```
 #
 # es 3 a
-![es3.1.1](../img/es3_1.png)
+![es3.1.1](../img/md/es3_1.png)
 
     prendiamo in considerazione i gradi di un grafo non orientato che possono variare da 0 a n-1, il grafo essendo connesso varia da 1 a n-1 perche nessun connesso nessun nodo puo avere grado 0 quindi quando vado a vedere i gradi di tutti i nodi al caso pessimo arrivo 
     all'penultimo dove ogni nodo ha un grado diverso e l'ultimo sicuramente avra un grado come uno dei precedenti
 
-![es3.1.2](../img/es3_1_1.png)
+![es3.1.2](../img/md/es3_1_1.png)
 
     il principio funziona anche se il grafo e sconnesso perche i possibili ordini 
     variano da 0 a n-2 perche essendoci almeno un nodo sconnesso nessun nodo ha 
     grado n-1
 #
 # es 3 b
-![es3.2](../img/es3_2.png)
+![es3.2](../img/md/es3_2.png)
 
     da fare 
 #    
 # es 4
-![es4](../img/es4_1.png)
+![es4](../img/md/es4_1.png)
 
 
     Se il grafo ha un nodo di grado 1 posso rimuovere quello e il grafo non si sconnette rimangono da dimostrare tutti i casi in cui non abbiamo nodi con grado 1. se non abbiamo nodi di grado 1 allora il grado minimo é >= 2 quindi sicuramente abbiamo dei cicli.
@@ -26,7 +46,7 @@
 
 #
 # es 5
-![es5](../img/es5.png)
+![es5](../img/md/es5.png)
 
 # (a)
     un grafo con n=nNodi nodi tutti di grado k=ordNodi avrà nArchi = (nNodi*ordNodi)/2 
@@ -38,9 +58,9 @@
 
 ## es 6
 
-![es5](../img/es6.png)
+![es5](../img/md/es6.png)
 ## risposta
-![risposta](../img/risp_es_6.jpeg)
+![risposta](../img/md/risp_es_6.jpeg)
 
 
 
