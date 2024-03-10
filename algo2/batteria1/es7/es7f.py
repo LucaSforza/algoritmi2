@@ -22,4 +22,3 @@ def es7f(grafo:list[list[int]],nodoPartenza=0)->int:
                 nAlberi+=1
     return nAlberi
 
-print(es7f([[13],[2,3],[1,3],[1,2],[5,11,7],[4],[],[4],[9],[8],[11],[10,4],[13,14],[12,15,0],[12,15],[14,13]]))

@@ -88,14 +88,16 @@ def inputGrafoEdgeList():
             lastInputElimined = True
         else:
             arcs = arco.split(" ")
-            if len(arcs) != 2:
-                lastInputFailed = True
-            else:
+            if len(arcs) == 2:
                 if arcs[0] not in grafo.nodes:
                     grafo.add_node(arcs[0])
                 if arcs[1] not in grafo.nodes:
                     grafo.add_node(arcs[1])
                 grafo.add_edge(arcs[0], arcs[1])
+            elif len(arcs) == 1:
+                grafo.add_node(arcs[0])
+            else:
+                lastInputFailed = True
     return grafo
 
 def netGrafToListAdiacenzaList(grafo:nx.Graph)->list[list[int]]:
