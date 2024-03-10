@@ -1,7 +1,7 @@
 grafo1 = [[1],[3],[1,4],[4],[2,3],[4]]
 grafo2 = [[1,3],[2],[3],[0]]  # expected [[1, 3], [2], [3], []]
 visitati = [0]*len(grafo2)
-def es82f(grafo:list[list[int]],nodo:int):
+def es82f(grafo:list[list[int]],nodo:int,visitati:list[int])->list[list[int]]:
     if visitati[nodo]==1:
         return 
     else:
@@ -14,6 +14,7 @@ def es82f(grafo:list[list[int]],nodo:int):
                     grafo[arco].remove(nodo)
             else:
                 es82f(grafo,arco)
+    return grafo
 
 
 

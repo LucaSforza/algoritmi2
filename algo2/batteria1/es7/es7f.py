@@ -1,4 +1,8 @@
-def ricerca(grafo:list[list[int]], nodoCorrente,lastNodeVisited, visitati:list[int], counterComponenti:int,isAlbero:bool=True)->bool,list[int]:
+from typing import Tuple
+
+
+
+def ricerca(grafo:list[list[int]], nodoCorrente,lastNodeVisited, visitati:list[int], counterComponenti:int,isAlbero:bool=True)-> Tuple[bool ,list[int]]:
     visitati[nodoCorrente] = counterComponenti
     isAlberor = True
     for nodo in grafo[nodoCorrente]:
