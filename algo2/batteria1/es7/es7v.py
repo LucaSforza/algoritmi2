@@ -19,7 +19,7 @@ G = [
 
 V = [0 for _ in range(len(G))]
 
-def es7(L: list[list[int]], V)-> int:
+def es7v(L: list[list[int]], V)-> int:
     count = 0
     for i in range(len(L)):
         if V[i] == 0 and is_tree(i,None,L,V):
@@ -37,4 +37,8 @@ def is_tree(nodo:int,lastVisited:int,grafo:list[list[int]],visitati:list[int])->
     
         
 if __name__ == '__main__':
-    print(es7(G,V))
+
+    graf = [[1,2],[3],[3],[]]
+    V = [0 for _ in range(len(graf))]
+
+    print(es7v(graf,V))
