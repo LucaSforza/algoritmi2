@@ -2,6 +2,7 @@ import networkx as nx
 import pickle
 import os
 import matplotlib.pyplot as plt
+import matplotlib.patches as matpat
 
 # mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
@@ -59,9 +60,21 @@ def inputGrafoEdgeList():
     TODO: Comando che stampa tutti gli archi inseriti fino ad ora.
     TODO: Comando che permette di eliminare un nodo solo se non è più collegato a nessun arco.
     '''
-    grafo = nx.Graph()
+    grafo_diretto = True
     print("Inserisci gli archi, prima il nodo di partenza seguito dal nodo di arrivo -> nodo nodo")
+    print("per inserire solo un nodo inserici un stringa senza spazi")
     print("Quando hai finito, scrivi 'fine'")
+    print('scrivi: g, dg')
+    scelta = input()
+    if scelta.lower() == 'dg':
+        print('modaloita scelta: grafo diretto')
+        grafo = nx.DiGraph()
+    elif scelta.lower() == 'g':
+        grafo_diretto = False
+        grafo = nx.Graph()
+        print('modalita scelta: grafo non diretto')
+    else:
+        print('input non valido /n scrivi: g, dg')
     print("Per rimuovere un arco, scrivi 'del nodo nodo'")
     arcs = None
     inserito = True
@@ -93,7 +106,11 @@ def inputGrafoEdgeList():
                     grafo.add_node(arcs[0])
                 if arcs[1] not in grafo.nodes:
                     grafo.add_node(arcs[1])
-                grafo.add_edge(arcs[0], arcs[1])
+                if grafo_diretto:
+                    grafo.add_edge(arcs[0], arcs[1])
+                else:
+                    grafo.add_edge(arcs[0], arcs[1])
+                    grafo.add_edge(arcs[1], arcs[0])
             elif len(arcs) == 1:
                 grafo.add_node(arcs[0])
             else:
@@ -141,10 +158,10 @@ def saveGraphToFile(grafo, filename):
     Ritorna:
     None
     """
-    if type(grafo) == nx.Graph:
+    if type(grafo) == nx.Graph or type(grafo) == nx.DiGraph:
         filename = filename +'_'+ 'networkx'
     else:
-        filename = filename +'_'+ type(grafo)
+        filename = filename +'_'+ str(type(grafo))
     filepath = f"draw/saved/{filename}.pickle"
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     with open(filepath, "wb") as file:
@@ -169,3 +186,10 @@ def loadGraphFile(filename):
     else:
         print(f"File {filename} not found.")
         return None
+
+if __name__ ==  "__main__":
+    # G = inputGrafoEdgeList()
+    # saveGraphToFile(G,'provagrafodiretto')
+    G = loadGraphFile('provagrafodiretto_networkx')
+    drawNetGraf(G)
+    pass
