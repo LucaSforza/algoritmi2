@@ -4,7 +4,7 @@ def colora2(nodo:int,G:list[list[int]],colorati:list[list[int]],c:int)->bool:
     colorati[nodo]=c
     for nextNodo in G[nodo]:
         if colorati[nextNodo] == -1:
-            if not colora2(nextNodo,G,colorati,1-c): return False
+            if not colora2(nextNodo,G,colorati,1-c): return False #Complessità O(n+m)
         elif colorati[nextNodo] == c:
             return False
     return True
