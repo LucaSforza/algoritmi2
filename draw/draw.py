@@ -24,7 +24,7 @@ def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
         grafo.add_edge(tupla[0],tupla[1])
     return grafo
 
-def drawNetGraf(grafo):
+def drawNetGraf(grafo:nx.Graph):
     '''
     Disegna un grafo utilizzando l'oggetto grafo della libreria networkx.
 
@@ -33,14 +33,15 @@ def drawNetGraf(grafo):
 
     Ritorna:
     None
+    TODO grafi diretti
     '''
-    nx.draw_networkx(grafo,
+    nx.draw(grafo,
         with_labels=True,
-        node_size=200,
+        node_size=400,
         font_size=10,
         linewidths = 0.5,
         font_color='black',
-        node_color='yellow',
+        node_color='green',
         edge_color='black',
         width=4,
         pos=nx.spring_layout(grafo)
@@ -74,22 +75,25 @@ def inputGrafoEdgeList():
         grafo = nx.Graph()
         print('modalita scelta: grafo non diretto')
     else:
-        print('input non valido /n scrivi: g, dg')
-    print("Per rimuovere un arco, scrivi 'del nodo nodo'")
+        lastInputFailed = True
+        print('input non valido \n scrivi: g, dg')
+    
     arcs = None
     inserito = True
     lastInputFailed = False
     lastInputElimined = False
-    while inserito:
-        print("Nodi inseriti: " + str(len(grafo.nodes)))
-        print("Archi inseriti: " + str(len(grafo.edges)))
+    while inserito:        
+        
         if lastInputElimined:
             print("Ultimo arco rimosso: " + str(arcs))
             lastInputElimined = False
         else:
             print("Ultimo arco aggiunto: " + str(arcs))
         if lastInputFailed:
+            print("Nodi inseriti: " + str(len(grafo.nodes)))
+            print("Archi inseriti: " + str(len(grafo.edges)))
             print("Inserisci un arco che è costituito da due stringhe separate da uno spazio")
+            print("Per rimuovere un arco, scrivi 'del nodo nodo'")
             lastInputFailed = False
         arco = input()
         if arco == "fine":
@@ -188,8 +192,8 @@ def loadGraphFile(filename):
         return None
 
 if __name__ ==  "__main__":
-    # G = inputGrafoEdgeList()
+    G = inputGrafoEdgeList()
     # saveGraphToFile(G,'provagrafodiretto')
-    G = loadGraphFile('provagrafodiretto_networkx')
+    #G = loadGraphFile('provagrafodiretto_networkx')
     drawNetGraf(G)
     pass
