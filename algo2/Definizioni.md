@@ -1,8 +1,15 @@
 # albero 
     un grafo aciclico connesso
+# grafo denso 
+    quando ha un numero chi archi uguiale a O(n^2)
+    
+# grafo sparso 
+    quando ha un numero di archi O(n)
 
 # DAG 
     grafo orientato aciclico 
+# grafo completo
+    un grafo con tutti gli archi e tutti i nodi 
 
 # grafo connesso 
     è un grafo non orientato dove riesco a trovare un cammino orientato fra ogni coppia di nodi

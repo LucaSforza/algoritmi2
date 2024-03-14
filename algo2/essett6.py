@@ -21,7 +21,7 @@ def cnt_edges_types(
     visitati[nodo]=1
     for nex_node in grafo[nodo]:
         if padri[nex_node]==-1:
-            f_cnt_i, f_cnt_a, f_cnt_t = DFS(grafo,nex_node,nodo,padri,visitati,0,0,0)
+            f_cnt_i, f_cnt_a, f_cnt_t = cnt_edges_types(grafo,nex_node,nodo,padri,visitati,0,0,0)
             cnt_i += f_cnt_i
             cnt_a += f_cnt_a
             cnt_t += f_cnt_t
@@ -39,7 +39,7 @@ def cnt_edges_types(
 def conta_archi(grafo:list[list[int]],nodo:int):
     padri = [-1]*len(grafo)
     visitati = [0]*len(grafo)
-    print(DFS(grafo,nodo,nodo,padri,visitati,0,0,0))
+    print(cnt_edges_types(grafo,nodo,nodo,padri,visitati,0,0,0))
 
 if __name__=="__main__":
     graf = [[1,2],[3],[3],[4,5],[5],[6],[1]]
