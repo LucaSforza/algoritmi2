@@ -62,11 +62,24 @@ def generatePrime(n:int)->list[int]:
 ## risposta
 ![risposta](../img/md/risp_es_6.jpeg)
 
+# es 11
 
+![es11](../img/md/es11.png)
+![rispostaA](../img/md/es11risp.jpeg)
 
+    (B) le componenti fortemente connesse sono : (2,3,4,5),(1),(7),(6)
+    (C) basta aggiungere due archi che sono ad esmpio (2,6),(2,1), entrambi gli archi devono partire dalla componente fortemente connessa maggiore e arrivare ai nodi che non avevano archi entranti
+    (D) un grafo per avere un ordinamento topologico non deve avere cicli, visto che il nostro grafo ha un solo ciclo ci basta togliere un solo arco per fre in modo che non ne abbia
 
+# es 12
 
+![es11](../img/md/es12.png)
+![rispostaA](../img/md/es12risp.jpeg)
 
+    (A) l'aborescenza radicata in 6 ha 2 archi in avanti e uno in indietro
+    (B) ha 4 componenti fortemente connesse (1,3,5),(2),(6),(7)
+    (C) basta un solo arco dall' 1 al 7
+    (D)  un grafo per avere un ordinamento topologico non deve avere cicli, visto che il nostro grafo ha un solo ciclo ci basta togliere un solo arco per fre in modo che non ne abbia
 
 # sia G un grafo non orientato, dimostrare che se uno tra G e G_complementare è connesso 
 

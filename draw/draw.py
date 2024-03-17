@@ -2,6 +2,7 @@ import networkx as nx
 import pickle
 import os
 import matplotlib.pyplot as plt
+import matplotlib.patches as matpat
 
 # mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
@@ -23,7 +24,7 @@ def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
         grafo.add_edge(tupla[0],tupla[1])
     return grafo
 
-def drawNetGraf(grafo):
+def drawNetGraf(grafo:nx.Graph):
     '''
     Disegna un grafo utilizzando l'oggetto grafo della libreria networkx.
 
@@ -32,14 +33,15 @@ def drawNetGraf(grafo):
 
     Ritorna:
     None
+    TODO grafi diretti
     '''
-    nx.draw_networkx(grafo,
+    nx.draw(grafo,
         with_labels=True,
-        node_size=200,
+        node_size=400,
         font_size=10,
         linewidths = 0.5,
         font_color='black',
-        node_color='yellow',
+        node_color='green',
         edge_color='black',
         width=4,
         pos=nx.spring_layout(grafo)
@@ -59,24 +61,39 @@ def inputGrafoEdgeList():
     TODO: Comando che stampa tutti gli archi inseriti fino ad ora.
     TODO: Comando che permette di eliminare un nodo solo se non è più collegato a nessun arco.
     '''
-    grafo = nx.Graph()
+    grafo_diretto = True
     print("Inserisci gli archi, prima il nodo di partenza seguito dal nodo di arrivo -> nodo nodo")
+    print("per inserire solo un nodo inserici un stringa senza spazi")
     print("Quando hai finito, scrivi 'fine'")
-    print("Per rimuovere un arco, scrivi 'del nodo nodo'")
+    print('scrivi: g, dg')
+    scelta = input()
+    if scelta.lower() == 'dg':
+        print('modaloita scelta: grafo diretto')
+        grafo = nx.DiGraph()
+    elif scelta.lower() == 'g':
+        grafo_diretto = False
+        grafo = nx.Graph()
+        print('modalita scelta: grafo non diretto')
+    else:
+        lastInputFailed = True
+        print('input non valido \n scrivi: g, dg')
+    
     arcs = None
     inserito = True
     lastInputFailed = False
     lastInputElimined = False
-    while inserito:
-        print("Nodi inseriti: " + str(len(grafo.nodes)))
-        print("Archi inseriti: " + str(len(grafo.edges)))
+    while inserito:        
+        
         if lastInputElimined:
             print("Ultimo arco rimosso: " + str(arcs))
             lastInputElimined = False
         else:
             print("Ultimo arco aggiunto: " + str(arcs))
         if lastInputFailed:
+            print("Nodi inseriti: " + str(len(grafo.nodes)))
+            print("Archi inseriti: " + str(len(grafo.edges)))
             print("Inserisci un arco che è costituito da due stringhe separate da uno spazio")
+            print("Per rimuovere un arco, scrivi 'del nodo nodo'")
             lastInputFailed = False
         arco = input()
         if arco == "fine":
@@ -93,7 +110,11 @@ def inputGrafoEdgeList():
                     grafo.add_node(arcs[0])
                 if arcs[1] not in grafo.nodes:
                     grafo.add_node(arcs[1])
-                grafo.add_edge(arcs[0], arcs[1])
+                if grafo_diretto:
+                    grafo.add_edge(arcs[0], arcs[1])
+                else:
+                    grafo.add_edge(arcs[0], arcs[1])
+                    grafo.add_edge(arcs[1], arcs[0])
             elif len(arcs) == 1:
                 grafo.add_node(arcs[0])
             else:
@@ -141,10 +162,10 @@ def saveGraphToFile(grafo, filename):
     Ritorna:
     None
     """
-    if type(grafo) == nx.Graph:
+    if type(grafo) == nx.Graph or type(grafo) == nx.DiGraph:
         filename = filename +'_'+ 'networkx'
     else:
-        filename = filename +'_'+ type(grafo)
+        filename = filename +'_'+ str(type(grafo))
     filepath = f"draw/saved/{filename}.pickle"
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     with open(filepath, "wb") as file:
@@ -169,3 +190,10 @@ def loadGraphFile(filename):
     else:
         print(f"File {filename} not found.")
         return None
+
+if __name__ ==  "__main__":
+    G = inputGrafoEdgeList()
+    # saveGraphToFile(G,'provagrafodiretto')
+    #G = loadGraphFile('provagrafodiretto_networkx')
+    drawNetGraf(G)
+    pass
