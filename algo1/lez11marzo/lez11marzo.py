@@ -13,10 +13,10 @@ def fibonacciIterativo(n):
     return b
 
 
-def fibonacciRicorsivo(n):
+def fibonacciRicorsivoMALE(n):
     if n<=1 : 
         return n
-    return fibonacciRicorsivo(n-1)+fibonacciRicorsivo(n-2)
+    return fibonacciRicorsivoMALE(n-1)+fibonacciRicorsivoMALE(n-2)
 
 
 
@@ -32,16 +32,18 @@ def fibonacciRicorsivo2(n):
 
 print('fibonacci(80)')
 a = time.time()
-fibonacciIterativo(80)
+fibonacciIterativo(50)
 b = time.time()
 print('tempo fibonacciIterativo: '+str(b-a))
 
-c = time.time()
-fibonacciRicorsivo(80)
-d = time.time()
-print('tempo fibonacciRicorsivo: '+str(d-c))
 
 e = time.time()
-fibonacciRicorsivo2(80)
+fibonacciRicorsivo2(50)
 f = time.time()
-print('tempo fibonacciRicorsivo2: '+str(f-c))
+print('tempo fibonacciRicorsivo2: '+str(f-e))
+
+
+c = time.time()
+fibonacciRicorsivoMALE(50)
+d = time.time()
+print('tempo fibonacciRicorsivo: '+str(d-c))
