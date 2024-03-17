@@ -6,6 +6,13 @@
 # grafo sparso 
     quando ha un numero di archi O(n)
 
+# albero ricoprente spanning three (albero DFS)
+    albero cgreato da un algoritmo di ricerca
+
+# definizione foglia 
+    alberi radicati non ha nessun figlio
+    alberi non radicati nodi di grado 1
+
 # DAG 
     grafo orientato aciclico 
 # grafo completo
@@ -13,7 +20,9 @@
 
 # grafo connesso 
     è un grafo non orientato dove riesco a trovare un cammino orientato fra ogni coppia di nodi
-
+# grafo condensato
+    un grafo in cui i nodi sono un insieme di nodi che fanno parte della stessa componente fortemente connessa del grafo di partenza 
+    
 # grafo fortemente connesso
     è un grafo orientato dove riesco a trovare un cammino orientato fra ogni coppia di nodi ordinata
 
