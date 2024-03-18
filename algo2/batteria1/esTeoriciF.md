@@ -80,13 +80,3 @@ def generatePrime(n:int)->list[int]:
     (B) ha 4 componenti fortemente connesse (1,3,5),(2),(6),(7)
     (C) basta un solo arco dall' 1 al 7
     (D)  un grafo per avere un ordinamento topologico non deve avere cicli, visto che il nostro grafo ha un solo ciclo ci basta togliere un solo arco per fre in modo che non ne abbia
-
-# sia G un grafo non orientato, dimostrare che se uno tra G e G_complementare è connesso 
-
-    caso 1 se G e connesso dimostrato perche G stesso e connesso 
-    caso 2 se G ha un solo nodo sconnesso da tutto il resto del grafo , 
-        nel grafo complementare quel nodo sara connesso a tuttio gli altri 
-        e g_complementare sarà connesso
-    caso 3 se G ha due sottografi sconnessi nel grafo complementare ogni punto di un 
-        sottografo sarà connesso a tutti gli altri dell altro sottografo stessa cosa
-         nell'altro senso e tutto sarà connesso 
