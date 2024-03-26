@@ -24,20 +24,20 @@ def padre_in_comune(fathers_u: list[int], fathers_v: list[int],n: int) -> int:
 
 #TODO: contettualmente funziona in pratica no
 def distanza(P: list[int],u: int, v: int) -> int:
-    fathers_u = []
-    fathers_v = []
-    u_origin = u - 1
-    v_origin = v - 1
+    fathers_u = [u]
+    fathers_v = [v]
+    u_origin = u
+    v_origin = v
     while True: # O(n)
-        fathers_u.append(P[u - 1])
-        u = P[u - 1]
-        if P[u - 1] == u:
+        fathers_u.append(P[u])
+        u = P[u]
+        if P[u] == u:
             break
     
     while True: # O(n)
-        fathers_v.append(P[v - 1])
-        v = P[v - 1]
-        if P[v - 1] == v:
+        fathers_v.append(P[v])
+        v = P[v]
+        if P[v] == v:
             break
     # O(n)
     padre_comune = padre_in_comune(fathers_u, fathers_v, len(P))
@@ -45,6 +45,10 @@ def distanza(P: list[int],u: int, v: int) -> int:
     while True:
         u_origin = P[u_origin]
         if u_origin == padre_comune:
+            count_u += 1
+            break
+        if u_origin == P[u_origin]:
+            count_u = 0
             break
         count_u += 1
 
@@ -53,13 +57,17 @@ def distanza(P: list[int],u: int, v: int) -> int:
     while True:
         v_origin = P[v_origin]
         if v_origin == padre_comune:
+            count_v += 1
+            break
+        if v_origin == P[v_origin]:
+            count_v = 0
             break
         count_v += 1
 
-    return count_u + count_v + 1
+    return count_u + count_v
 
 if __name__ == '__main__':
-    list_in = [2, 2, 1, 2, 4, 3, 3, 9, 1]
+    list_in = [1, 1, 0, 1, 3, 2, 2, 8, 0]
     
-    print(distanza(list_in, 9, 4))
-    print(distanza(list_in,3,6))
+    print(distanza(list_in, 8, 3))
+    print(distanza(list_in,2,5))

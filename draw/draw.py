@@ -4,6 +4,9 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.patches as matpat
 
+def draw(G: list[list[int]]):
+    drawNetGraf(edgeListToNetGraf(G))
+
 # mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     """
