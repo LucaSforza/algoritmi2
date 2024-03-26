@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "draw"
+version = "0.1.0"
+description = "Semplice package per disegnare grafi dato una lista di adiacenza per il corso di Algoritmi 2 sapienza M-Z"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+networkx = "^3.2.1"
+matplotlib = "^3.8.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
