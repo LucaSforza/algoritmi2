@@ -1,4 +1,3 @@
-from draw import *
 
 Grafo = [
     [1], # 1 -> 2
@@ -29,7 +28,6 @@ def gqR(
         if V[v] == 0:
             gqR(G,v,u,L,V)
 
-
+# TODO non funziona
 if __name__ == '__main__':
-    print(grafo_quadrato(Grafo))
-    draw()
+    print(grafo_quadrato(grafo_quadrato(Grafo)))
