@@ -11,23 +11,26 @@ Grafo = [
 def grafo_quadrato(G: list[list[int]]) -> list[list[int]]:
     L = [[] for _ in range(len(G))]
     V = [0]*len(G)
-    gqR(G, 0, len(G)-1, L, V)
+    gqR(G, len(G)-1, L, V)
     return L
 
 def gqR(
     G: list[list[int]],
     u: int,
-    p: int,
     L: list[list[int]],
     V: list[int],
 ):
     V[u] = 1
     for v in G[u]:
-        L[p].append(v)
-        L[u].append(v)
+        if v not in L[u]:
+            L[u].append(v)
+        for x in G[v]:
+            if x not in L[u]:
+                L[u].append(x)
         if V[v] == 0:
-            gqR(G,v,u,L,V)
+            gqR(G,v,L,V)
 
 # TODO non funziona
 if __name__ == '__main__':
     print(grafo_quadrato(grafo_quadrato(Grafo)))
+    
