@@ -1,3 +1,5 @@
+from draw import *
+
 Grafo = [
     [1], # 1 -> 2
     [2], # ...
@@ -30,3 +32,4 @@ def gqR(
 
 if __name__ == '__main__':
     print(grafo_quadrato(Grafo))
+    draw()
