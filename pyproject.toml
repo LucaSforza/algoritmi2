@@ -8,6 +8,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+matplotlib = "^3.8.3"
+networkx = "^3.2.1"
+draw = {path = "draw", develop = true}
 
 
 [build-system]

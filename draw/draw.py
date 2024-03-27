@@ -4,6 +4,25 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.patches as matpat
 
+def draw(G: list[list[int]], direct=False):
+    drawNetGraf(adjacent_list_to_graft(G,direct))
+    
+def adjacent_list_to_graft(G: list[list[int]], direct: bool) -> nx.Graph:
+    if direct:
+        graph = nx.DiGraph()
+    else:
+        graph = nx.Graph()
+
+    for i in range(len(G)):
+        graph.add_node(i)
+    
+    for i,edges in enumerate(G):
+        for v in edges:
+            graph.add_edge(i,v)
+    
+    return graph
+        
+    
 # mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
 def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     """
