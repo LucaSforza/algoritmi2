@@ -1,3 +1,5 @@
+from draw import draw
+import networkx as nx
 
 Grafo = [
     [1], # 1 -> 2
@@ -31,5 +33,6 @@ def gqR(
             gqR(G,v,L,V)
 
 if __name__ == '__main__':
-    print(grafo_quadrato(grafo_quadrato(Grafo)))
-    
+    g = grafo_quadrato(Grafo)
+    print(g)
+    draw(g,direct=True)    
