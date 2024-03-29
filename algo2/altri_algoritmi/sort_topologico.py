@@ -1,4 +1,5 @@
 from typing import Optional
+from draw import draw
 
 G = [
     [1,5,6],
@@ -46,10 +47,36 @@ def sort_dfs(G: list[list[int]]) -> Optional[list[int]]:
     list_out.reverse()
     return list_out
 
+G1 = [
+    ([],[2,3]),
+    ([0,3],[2]),
+    ([],[0,1,4]),
+    ([2],[0]),
+    ([],[2])
+]
+
 # esercizio slide 5
 def orienta_alcuni(G: list[tuple[list[int],list[int]]]) -> list[list[int]]:
-    pass
+    def DFSr(u: int, G: list[tuple[list[int],list[int]]],V: list[int], list_out: list[list[int]]):
+        V[u] = 1
+        orien,not_orien = G[u]
+        for v in not_orien:
+            if V[v] == 0:
+                list_out[v].append(u)
+                DFSr(v,G,V,list_out)
+        for v in orien:
+            list_out[u].append(v)
+            if V[v] == 0:
+                DFSr(v,G,V,list_out)
+        
+    list_out = [[] for _ in range(len(G))] # O(n)
+    V = [0]*len(G)
+    for u in range(len(G)):
+        if V[u] == 0:
+            DFSr(u,G,V,list_out)
+    return list_out
 
 if __name__ == '__main__':
     print(sorgenti(G))
     print(sort_dfs(G))
+    draw(orienta_alcuni(G1),direct=True)
