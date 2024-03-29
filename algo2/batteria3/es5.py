@@ -76,7 +76,6 @@ def es5(G: list[list[int]]) -> list[list[int]]:
                 DFSr(v,G,V,CFS,list_out)
 
     CFS = tarjan(G) # O(n+m)
-    print(CFS)
     nCFS = max(CFS) + 1 # O(n)
     list_out = [[] for _ in range(nCFS)] # O(n)
     V = [0 for _ in range(len(G))] # O(n)
