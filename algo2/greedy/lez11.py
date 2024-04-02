@@ -1,10 +1,11 @@
 from typing import Optional
 
+# questo algoritmo è 𝛩(n)
 def cassonetti(case: list[int], k: int) -> list[int]:
     pos_k = None
     result = []
-    for c in case:
-        if not rientra(c,pos_k,k):
+    for c in case: # eseguito esattamente n volte
+        if not rientra(c,pos_k,k): # il corpo del for è costante 𝛩(1)
             pos_k = c + k
             result.append(pos_k)
     return result
