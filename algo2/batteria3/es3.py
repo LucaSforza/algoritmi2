@@ -17,7 +17,7 @@ def cammino(G: list[list[int]]) -> list[int]:
             if V[v] == 0:
                 DFSr(v,u,G,V,cam)
                 cam.append(u)
-            if V[v] == 1 and not v == p:
+            elif V[v] == 1 and not v == p:
                 cam.extend([v,u])
         V[u] = 2
     cam = []
