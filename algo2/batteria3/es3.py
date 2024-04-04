@@ -10,7 +10,7 @@ G = [
 
 # restituisce un cammino dove si passa per ogni arco una ed una sola volta
 def cammino(G: list[list[int]]) -> list[int]:
-    def DFSr(u: int,p: int,G: list[list[int]],V: list[int],cam: list[int]) -> None:
+    def DFSr(u: int,p: int,G: list[list[int]],V: list[int],cam: list[int]) -> list[int]:
         V[u] = 1
         cam.append(u)
         for v in G[u]:
