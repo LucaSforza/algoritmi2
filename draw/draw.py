@@ -3,10 +3,38 @@ import pickle
 import os
 import matplotlib.pyplot as plt
 import matplotlib.patches as matpat
+from typing import Any
 
 def draw(G: list[list[int]], direct=False):
     drawNetGraf(adjacent_list_to_graft(G,direct))
-    
+
+def formatEdgeListToAdiacentList(edgelist:list[tuple[Any,Any]],direct:bool):
+    traduttore = dict()
+    cNode = 0
+    nodi = set() 
+    for edge in edgelist:
+        nodi.add(edge[0])
+        nodi.add(edge[1])
+        if edge[0] not in traduttore:
+            traduttore[edge[0]] = cNode
+            cNode+=1
+        if edge[1] not in traduttore:
+            traduttore[edge[1]] = cNode
+            cNode+=1
+    adiSetOut = [set() for _ in range(len(nodi))]
+    for edge in edgelist:
+        nodo1 = traduttore[edge[0]]
+        nodo2 = traduttore[edge[1]]
+        if direct:
+            adiSetOut[nodo1].add(nodo2)
+            adiSetOut[nodo2].add(nodo1)
+        else:
+            adiSetOut[nodo1].add(nodo2)
+    adiListOut = []
+    for s in adiSetOut:
+        adiListOut.append(list(s))
+    return adiListOut
+
 def adjacent_list_to_graft(G: list[list[int]], direct: bool) -> nx.Graph:
     if direct:
         graph = nx.DiGraph()
@@ -24,7 +52,7 @@ def adjacent_list_to_graft(G: list[list[int]], direct: bool) -> nx.Graph:
         
     
 # mi sa che esiste gia una funzione che fa la stessa cosa della libreria 
-def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
+def edgeListToNetGraf(edgeList:list[tuple[int,int]]):
     """
     Converte una lista di archi in un grafo networkx.
 
@@ -35,6 +63,7 @@ def edgeListToNetGraf(edgeList:list[tuple[int,int]],grafo=nx.Graph()):
     Returns:
     - grafo: Il grafo networkx con gli archi aggiunti.
     """
+    grafo=nx.Graph()
     for tupla in edgeList:
         if tupla[0] not in list(grafo.nodes):
             grafo.add_node(tupla[0])
@@ -211,8 +240,8 @@ def loadGraphFile(filename):
         return None
 
 if __name__ ==  "__main__":
-    G = inputGrafoEdgeList()
+    #G = inputGrafoEdgeList()
     # saveGraphToFile(G,'provagrafodiretto')
     #G = loadGraphFile('provagrafodiretto_networkx')
-    drawNetGraf(G)
+    #drawNetGraf(G)
     pass
