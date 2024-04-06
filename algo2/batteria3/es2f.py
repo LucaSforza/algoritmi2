@@ -4,31 +4,31 @@ from draw import *
 # usando liste di adiacenza 
 def es2f(grafo:list[list[int]])->list[list[int]]: #O(n^3)
     contIteraz = 0
-    gQuadro = [[] for _ in range(len(grafo))]  
+    gQuadro = [set() for _ in range(len(grafo))]  
     for i,nodo in enumerate(grafo): #H(n)
         contIteraz+=1
         for adiNodo in nodo: # O(n)
             contIteraz+=1
-            gQuadro[i].append(adiNodo)
+            gQuadro[i].add(adiNodo)
             for nodo in grafo[adiNodo]: # O(n)
                 contIteraz+=1
-                gQuadro[i].append(nodo)
+                gQuadro[i].add(nodo)
     return gQuadro,contIteraz
 
 # usando matrici di adiacenza 
 def es2fmat(grafo:list[list[int]])->list[list[int]]: # H(n^3)
     contIteraz = 0
-    gQuadro = [[] for _ in range(len(grafo))]  
+    gQuadro = [set() for _ in range(len(grafo))]  
     for inl,line in enumerate(grafo): # H(n)
         contIteraz+=1
         for ie,edge in enumerate(line): # H(n)
             contIteraz+=1
             if edge:
-                gQuadro[inl].append(ie)
+                gQuadro[inl].add(ie)
                 for ieq,edgeq in enumerate(grafo[ie]): # H(n)
                     contIteraz+=1
                     if edgeq:
-                        gQuadro[inl].append(ieq)
+                        gQuadro[inl].add(ieq)
     return gQuadro,contIteraz
 
 matriceAdiacenza = [[0,1,0,0,0,0],
