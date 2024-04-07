@@ -2,12 +2,12 @@ from copy import deepcopy
 from draw import *
 
 # usando liste di adiacenza 
-def es2f(grafo:list[list[int]])->list[list[int]]: #O(n^3)
+def es2f(grafo:list[list[int]])->list[list[int]]: #O(n(n+m)) = O(nn+nm) = O(nm))
     contIteraz = 0
     gQuadro = [set() for _ in range(len(grafo))]  
-    for i,nodo in enumerate(grafo): #H(n)
+    for i,nodo in enumerate(grafo):
         contIteraz+=1
-        for adiNodo in nodo: # O(n)
+        for adiNodo in nodo: # H(n+m)
             contIteraz+=1
             gQuadro[i].add(adiNodo)
             for nodo in grafo[adiNodo]: # O(n)
