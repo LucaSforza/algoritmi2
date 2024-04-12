@@ -6,7 +6,6 @@ def find_sorg(grafo)->list[int]: # H(n+m)
     for nodo in grafo:
         for adi_nodo in nodo:
             entr[adi_nodo]+=1
-    
     return entr
 
 def sort_top(grafo,sorg,trad,ordine,sorg_trov = 0): # H(n+m)
