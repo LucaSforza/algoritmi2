@@ -72,11 +72,10 @@ def mergeSortR(lista,i,j):
         out = fondi(lista,i,m,j)
         return out
 
-def fondi(lista,a,m,b):
-    i = a
-    j = m+1
+def fondi(lista,i,m,j):
+    a , b = i , m+1
     listOut = []
-    while i<=m and j<=b:
+    while a<=j and b<=j:
         if lista[i]<=lista[j]:
             listOut.append(lista[i])
             i+=1
@@ -87,7 +86,7 @@ def fondi(lista,a,m,b):
 
 l1 = [2,4,6]
 l2 = [1,3,5,7]
-print(fondi(l1,l2))
+print(fondi())
 # da sistemare
 
 # esempio1 = [9,1,8,2,7,3,6,4,5]
