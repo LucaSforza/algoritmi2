@@ -50,5 +50,64 @@ def bubleSort(A:list[int])->list[int]:
     return
 
 '''
+merge Sort
 
 '''
+def mergeSortIter(lista,a,b):
+    n = len(lista)
+    l = 1
+    while l<n:
+        i = 0
+        while i-l<n:
+
+            fondi(lista,i,i+l-1,i+2*l-1)
+            i+=2*l
+        l*=2
+
+def mergeSortR(lista,i,j):
+    if i<j:
+        m = (i+j)//2
+        mergeSortR(lista,i,m)
+        mergeSortR(lista,m+1,j)
+        out = fondi(lista,i,m,j)
+        return out
+
+def fondi(lista,i,m,j):
+    a , b = i , m+1
+    listOut = []
+    while a<=j and b<=j:
+        if lista[i]<=lista[j]:
+            listOut.append(lista[i])
+            i+=1
+        else:
+            listOut.append(lista[j])
+            j+=1
+    return listOut
+
+l1 = [2,4,6]
+l2 = [1,3,5,7]
+print(fondi())
+# da sistemare
+
+# esempio1 = [9,1,8,2,7,3,6,4,5]
+# print(mergeSortR(esempio1,0,len(esempio1)-1))
+
+
+'''
+Quick Sort
+'''
+
+def quickSort(lista,a,b):
+    S,C,D = [],[],[]
+    if len(lista)==0:
+        return lista
+    p=lista[a]
+    for i in range(len(lista)):
+        if lista[i]<p: S.append(lista[i])
+        elif lista[i]==p: C.append(lista[i])
+        else: D.append(lista[i])
+    return quickSort(S,0,len(S)-1)+C+quickSort(D,0,len(D)-1)
+
+# esempio1 = [9,1,8,2,7,3,6,4,5]
+# print(quickSort(esempio1,0,len(esempio1)-1))
+
