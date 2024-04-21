@@ -14,17 +14,19 @@ def sommaMassima(lista):
             curr = 0
     return massimo
 
-esempio1 = [1,1,1,1,-1,-1] # 4
-esempio2 = [1,1,1,1,-1,-1,8] # 10
-esempio3 = [0] # 0
-esempio4 = [] # None
-esempio5 = [1,-1,-1] # 1
-esempio6 = [-1,-2] # -1 ?
+
+if __name__ == '__main__':
+    esempio1 = [1,1,1,1,-1,-1] # 4
+    esempio2 = [1,1,1,1,-1,-1,8] # 10
+    esempio3 = [0] # 0
+    esempio4 = [] # None
+    esempio5 = [1,-1,-1] # 1
+    esempio6 = [-1,-2] # -1 ?
 
 
-print(sommaMassima(esempio1))
-print(sommaMassima(esempio2))
-print(sommaMassima(esempio3))
-print(sommaMassima(esempio4))
-print(sommaMassima(esempio5))
-print(sommaMassima(esempio6))
+    print(sommaMassima(esempio1)==4)
+    print(sommaMassima(esempio2)==10)
+    print(sommaMassima(esempio3)==0)
+    print(sommaMassima(esempio4)==None)
+    print(sommaMassima(esempio5)==1)
+    print(sommaMassima(esempio6)==-1)
