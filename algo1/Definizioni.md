@@ -8,3 +8,11 @@
     - metodo di sostituzione 
 
 
+# struttura statica 
+    una volta onstanziata è immutabile (in python non esistono strutture statiche)
+
+# struttura dinamica 
+    cambia con il passare del tempo 
+
+
+

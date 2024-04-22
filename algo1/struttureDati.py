@@ -45,6 +45,38 @@ def aggiungiDopo(punt,data,dopo):
         punt = punt.next
     return start
 
+
+### Pikla 
+# operaioni
+# inserimento : 
+# cancellazone : 
+
+def pilaIns(pil,x):
+    return
+
+def pilaCanc(pil):
+    if pil == []: return None 
+    
+    return
+
+### Coda 
+# operaioni
+# inserimento : lo inseriamo in fondo alla struttura quindi richiede tempo costante 
+# cancellazone : 
+# si puo usare anche: from collectiuons import deque (comandi: pop,append,popleft,appendleft tutto in H(1))
+
+def codaCanc(testa,coda,x):
+    if testa == None:
+        return None,None,None
+    if testa == coda:
+        return testa.key,None,None
+    return testa.key,testa.next,coda
+
+def codCanc(cod):
+    if cod == []: return None # TODO da finire
+    
+    return
+
 if __name__ == '__main__':
     # p = Nodo(5)
     # print(p.key)
