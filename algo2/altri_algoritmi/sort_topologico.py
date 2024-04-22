@@ -55,26 +55,52 @@ G1 = [
     ([],[2])
 ]
 
+grafo_parz_orientato = list[tuple[list[int],list[int]]]
+
 # esercizio slide 5
-def orienta_alcuni(G: list[tuple[list[int],list[int]]]) -> list[list[int]]:
-    def DFSr(u: int, G: list[tuple[list[int],list[int]]],V: list[int], list_out: list[list[int]]):
+def orienta_alcuni(G: grafo_parz_orientato) -> list[list[int]]:
+    def sort_top(G: grafo_parz_orientato) -> list[int]:
+        from collections import deque
+        V = [0]*len(G)
+        for u in range(len(G)):
+            for y,_ in zip(*G[u]):
+                V[y] += 1
+        S = [u for u in range(len(G)) if V[u] == 0]
+        S = deque(S)
+        ST = []
+        while S:
+            u = S.popleft()
+            ST.append(u)
+            for y,_ in zip(*G[u]):
+                V[y] -= 1
+                if V[y] == 0:
+                    S.append(y)
+        return ST
+    def DFSr(u: int, V: list[int], G: grafo_parz_orientato,out: list[list[int]], sort: list[int]):
         V[u] = 1
-        orien,not_orien = G[u]
-        for v in not_orien:
-            if V[v] == 0:
-                list_out[v].append(u)
-                DFSr(v,G,V,list_out)
-        for v in orien:
-            list_out[u].append(v)
-            if V[v] == 0:
-                DFSr(v,G,V,list_out)
-        
-    list_out = [[] for _ in range(len(G))] # O(n)
+        A,B = G[u]
+        for y in A:
+            out[u].append(y)
+            if V[y] == 0:
+                DFSr(y,V,G,out,sort)
+        for y in B:
+            if sort[u] < sort[y]:
+                out[u].append(y)
+            else:
+                out[y].append(u)
+            if V[y] == 0:
+                DFSr(y,V,G,out,sort)
+
+    sort = sort_top(G) # O(n+m)
+    sort_value = [-1]*len(G)
+    for i,u in enumerate(sort):
+        sort_value[u] = i
+    out = [[] for _ in range(len(G))]
     V = [0]*len(G)
     for u in range(len(G)):
         if V[u] == 0:
-            DFSr(u,G,V,list_out)
-    return list_out
+            DFSr(u,V,G,out,sort_value)
+    return out
 
 if __name__ == '__main__':
     print(sorgenti(G))
