@@ -6,7 +6,7 @@ def es(V,i,j):
     if V[m] > m:
         return es(V,i,m)
     else:
-        return es(V,i,m)
+        return es(V,m,j)
 
 if __name__ == '__main__':
     V = [5,6,7,8]
