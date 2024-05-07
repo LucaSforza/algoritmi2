@@ -1,5 +1,5 @@
 from copy import deepcopy
-from draw import *
+#from draw import *
 
 # usando liste di adiacenza 
 def es2f(grafo:list[list[int]])->list[list[int]]: #O(n(n+m)) = O(nn+nm) = O(nm))

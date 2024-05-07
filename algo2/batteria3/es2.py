@@ -1,4 +1,4 @@
-from draw import draw
+#from draw import draw
 import networkx as nx
 
 Grafo = [
@@ -35,4 +35,4 @@ def gqR(
 if __name__ == '__main__':
     g = grafo_quadrato(Grafo)
     print(g)
-    draw(g,direct=True)    
+#    draw(g,direct=True)    
