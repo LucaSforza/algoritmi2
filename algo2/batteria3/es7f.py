@@ -69,3 +69,4 @@ print(es7f2(esempio5)==4)
 print(es7f2(esempio6)==4)
 print(es7f2(esempio7)==1)
 
+draw(esempio1)
