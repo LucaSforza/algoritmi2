@@ -96,4 +96,26 @@ def es5(lista:list[int],sol:list[int],m, i = 0):
     return 
 
 esempio1 = [1,4,3,6,8,4,3,6,7,6,3,5,7,3,]
-es5(esempio1,[],esempio1[0])
+#es5(esempio1,[],esempio1[0])
+def es1lez(n,sol,i=0,j=0):
+    if i == n:
+        for k in range(n):
+            print(sol[i])
+        print()
+        return
+    sol[i][j]=0
+    if j < n-1:
+        es1lez(n,sol,i,j+1)
+    else:
+        es1lez(n,sol,i+1,0)
+    sol[i][j]=1
+    if j < n-1:
+        es1lez(n,sol,i,j+1)
+    else:
+        es1lez(n,sol,i+1,0)
+    return
+
+def eslez(n):
+    sol = [[0]*n for _ in range(n)]
+    es1lez(n,sol)
+    return
