@@ -50,8 +50,48 @@ def esr(n):
 
 print(esr(4))
 
-        
 
+'''
+soluzione monti
+
+t[i] = il numero di stringhe lunghe 2n che hanno i uni nella prima meta e i uni nella seconda 
+f[i] = l'iesimo numeor fattoriale f(i) = i!
+'''
+
+def esmonti(n):
+    T = [0]*(n+1)
+    F = [1]*(n+1)
+    for i in  range(1,(n+1)):
+        F[i]=F[i-1]*i
+    for i in  range((n+1)):
+        T[i]=(F[n]/(F[n-i]*F[i]))**2
+    return sum(T)
+    
+'''
+prosecuzione esercizio, dato n stampare le stringhe che hanno lo stesso numero di uni nella seconda parte
+'''
+def esmonti2(n,i=0,sol=[],tot1=0,tot2=0):
+    if i==2*n:
+        print(sol)
+        return
+    if i<n:
+        sol.append(0)
+        esmonti2(n,i+1,sol,tot1,tot2)
+        sol.pop()
+        sol.append(1)
+        esmonti2(n,i+1,sol,tot1+1,tot2)
+        sol.pop()
+    else :
+        if tot2<tot1:
+            sol.append(1)
+            esmonti2(n,i+1,sol,tot1,tot2+1)
+            sol.pop()
+        if tot2+(2*n)-i>tot1:
+            sol.append(0)
+            esmonti2(n,i+1,sol,tot1,tot2)
+            sol.pop()
+
+esmonti2(2)
     
 
 
