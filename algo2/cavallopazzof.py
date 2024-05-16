@@ -26,10 +26,10 @@ def make_cnt(n):
     cnt = [0]*(n*n)
     for y in range(n):
         for x in range(n):
-            update_cnt(x,y,cnt,None,False)
+            update_cnt(n,x,y,cnt,None,False)
     return cnt
 
-def update_cnt(x,y,cnt,nelPath,dec):
+def update_cnt(n,x,y,cnt,nelPath,dec):
     rev = False
     mosse_cavallo = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
     for mossa in mosse_cavallo:
@@ -40,7 +40,6 @@ def update_cnt(x,y,cnt,nelPath,dec):
                     if dec:
                         cnt[t_idx]-=1
                         if cnt[t_idx]==0 and nelPath[t_idx]==0:
-                            print(nelPath.count(1))
                             rev = True
                     else:
                         cnt[t_idx]+=1
@@ -48,7 +47,7 @@ def update_cnt(x,y,cnt,nelPath,dec):
 
 def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,start,timeOut):
     if time()-start>timeOut:
-        raise RuntimeError('timeOut')
+        return n
     path.append(pos)
     nelPath[pos]=1
 
@@ -58,40 +57,42 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,start,timeOut):
     
     x,y = idxToCord(n,pos)
 
-    if not update_cnt(x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
+    if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
         neighbor_list.sort(key = lambda n: move_cnt[n])
         for neighbor in neighbor_list:
-            extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt)
+            extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,start,timeOut)
             if extended_path: 
                 return extended_path
         
     path.pop()
     nelPath[pos]=0
-    update_cnt(x,y,move_cnt,nelPath,dec=False)
+    update_cnt(n,x,y,move_cnt,nelPath,dec=False)
     return None
 
 def percorsoCavalloricerca(n,start,timeOut):
     graf = creaGrafo(n)
     used = [0]*(n*n)
     move_cnt = make_cnt(n)
-    try:
-        sol = hamiltonian_path(n,graf,0,[],used,move_cnt,start,timeOut)
-    except RuntimeError:
-        print(n)
+    sol = hamiltonian_path(n,graf,0,[],used,move_cnt,start,timeOut)
+
     return sol
 
 def cercaNumeriCritici(limite,timeOut):
-    for n in range(limite):
+    numeri = []
+    for n in range(5,limite):
+        print(n)
         start = time()
-        percorsoCavalloricerca(n,start,timeOut)
-    return
+        ret = percorsoCavalloricerca(n,start,timeOut)
+        if type(ret)==int:
+            numeri.append(ret)
+    return numeri
 
 
 if __name__ == '__main__':
-    num = 250
-#    start = time()
-#    percorsoCavallo(n)
-#    end = time()
-#    print(end-start)
-    cercaNumeriCritici(num,1.0)
+    start = time()
+    print(percorsoCavalloricerca(35,start,100.0))
+
+    
+    # num = 250
+    # print(cercaNumeriCritici(num,1.0))
