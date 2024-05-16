@@ -1,117 +1,7 @@
+import sys
+from time import time 
+sys.setrecursionlimit(1_100_000)
 
-def percorso(n,scacchiera,sol,mosse_cavallo,x=0,y=0):
-    if len(sol)==(n*n)-1:
-        return True
-    scacchiera[y][x]=1
-    sol.append((x,y))
-    for mossa in mosse_cavallo:
-        tx = x+mossa[0]
-        ty = y+mossa[1]
-        if n>tx>=0 and  n>ty>=0 and scacchiera[ty][tx]==0:
-            if percorso(n,scacchiera,sol,mosse_cavallo,tx,ty):
-                return True
-    sol.pop()
-    scacchiera[y][x]=0
-    return False
-
-def cercaP(n):
-    mosse_cavallo = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
-    sol = []
-    scacchiera = [[0]*n for _ in range(n)]
-    ris = percorso(n,scacchiera,sol,mosse_cavallo)
-    print(sol)
-    return ris
-
-################################################################################################
-
-def ricerca(n,grafo,visitati,count,sol,x=0,y=0):
-    idx = cordToIdx(n,x,y)
-    visitati[idx]=1
-    count-=1
-    if count == 0 :
-        sol.append((x,y))
-        return True
-    for adi in grafo[idx]:
-        if visitati[adi]==0:
-            ax,ay = idxToCord(n,adi)
-            if ricerca(n,grafo,visitati,count,sol,ax,ay):
-                sol.append((x,y))
-                return True
-    visitati[idx]=0
-    return False
-
-
-def cercaPercorsoGrafo(n):
-    scacchiera = [[0 for _ in range(n)] for _ in range(n)]
-    grafo = creaGrafo(n)
-    visitati = [0]*(n*n)
-    sol = []
-    if ricerca(n,grafo,visitati,n*n,sol):
-        print(list(reversed(sol)))
-    else:
-        print('non trovato')
-    return 
-
-def percMat(grafo,n):
-    nNodi = len(grafo)
-    mat = [[[0]*nNodi] for _ in range(nNodi)]
-    for npassi in range(nNodi):
-        for nodo in range(nNodi):
-            gn = grafo[nodo]
-            for adi in gn:
-                xt = idxToCord(n,adi)
-                if npassi==0:
-                    mat[npassi][nodo][xt]=1
-                else:
-                    for adi2 in gn:
-                        yt2 = idxToCord(n,adi2)
-                        if mat[npassi-1][yt2][xt]:
-                            mat[npassi][nodo][xt]=1
-    print(mat[-1])
-    return
-
-###############################################################################################
-
-
-def ricerca3(grafo,visitati,contatore,count=0,pos=0):
-    
-    if count == (n*n)-1:
-        return True
-    visitati[pos]=1
-    rev = []
-    for adi in grafo[pos]:
-        contatore[adi]-=1
-        rev.append(adi)
-        if contatore[adi]==0 and visitati[adi]==0:
-            print(contatore[adi])
-            print(visitati[adi])
-            print()
-            for d in rev:
-                contatore[d]+=1
-            rev = []
-            visitati[pos]=0
-            return False
-    for adi in grafo[pos]:
-        if visitati[adi]==0:
-            if ricerca3(grafo,visitati,contatore,count+1,adi):
-                return True
-    visitati[pos]=0
-    return False
-
-def haPercorso(n):
-    scacchiera = [[0]*n for _ in range(n)]
-    grafo = creaGrafo(n)
-    visitati = [0]*((n*n))
-    contatore = [0]*((n*n))
-    for nodo in grafo:
-        for adi in nodo:
-            contatore[adi]+=1
-    print(contatore)
-
-    print(ricerca3(grafo,visitati,contatore))
-    return
-
-################################################################
 def cordToIdx(n,x,y):
     return x+(y*n)
 
@@ -132,54 +22,63 @@ def creaGrafo(n):
                     grafo[cordToIdx(n,x,y)].append(cordToIdx(n,tx,ty))
     return grafo
 
-def hamiltonian_path(graph, pos, path,nelPath,counter):
-    path += [pos]
+def make_cnt(n):
+    cnt = [0]*(n*n)
+    for y in range(n):
+        for x in range(n):
+            update_cnt(x,y,cnt,None,False)
+    return cnt
 
-    if len(path) == len(graph):
-        return path
-    nelPath[pos]=1
-    x,y = idxToCord(n,pos)
-    if mosse_legali(x,y,counter):
-        mosse_legali(x,y,counter,False)
-        return None
-    for neighbor in graph[pos]:
-        if nelPath[neighbor]==0:
-            extended_path = hamiltonian_path(graph, neighbor, path,nelPath,counter)
-            if extended_path: 
-                return extended_path
-            elif neighbor==graph[-1]:
-                path.pop()
-                nelPath[pos]=0
-    return None
-
-def mosse_legali(x,y,counter,decremento = True):
+def update_cnt(x,y,cnt,nelPath,dec):
     rev = False
     mosse_cavallo = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
     for mossa in mosse_cavallo:
                 tx = x+mossa[0]
                 ty = y+mossa[1]
                 if n>tx>=0 and  n>ty>=0:
-                    if decremento:
-                        counter[cordToIdx(n,tx,ty)]-=1
-                        if counter[cordToIdx(n,tx,ty)]==0:
+                    t_idx = cordToIdx(n,tx,ty)
+                    if dec:
+                        cnt[t_idx]-=1
+                        if cnt[t_idx]==0 and nelPath[t_idx]==0:
+                            print(nelPath.count(1))
                             rev = True
                     else:
-                        counter[cordToIdx(n,tx,ty)]+=1
+                        cnt[t_idx]+=1
     return rev
 
-def prova1(n):
+def hamiltonian_path(graph, pos, path, nelPath, move_cnt):
+    path.append(pos)
+    nelPath[pos]=1
+
+    deltalen=len(graph)-len(path)
+    if not deltalen:
+        return path
+    
+    x,y = idxToCord(n,pos)
+
+    if not update_cnt(x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
+        neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
+        neighbor_list.sort(key = lambda n: move_cnt[n])
+        for neighbor in neighbor_list:
+            extended_path = hamiltonian_path(graph, neighbor, path,nelPath,move_cnt)
+            if extended_path: 
+                return extended_path
+        
+    path.pop()
+    nelPath[pos]=0
+    update_cnt(x,y,move_cnt,nelPath,dec=False)
+    return None
+
+def percorsoCavallo(n):
     graf = creaGrafo(n)
-    sol = []
-    nelPath = [0]*(n*n)
-    counter = [0]*(n*n)
-    for y in range(n):
-        for x in range(n):
-            mosse_legali(x,y,counter,False)
-    return hamiltonian_path(graf,0,sol,nelPath,counter)
+    used = [0]*(n*n)
+    move_cnt = make_cnt(n)
+    return hamiltonian_path(graf,0,[],used,move_cnt)
+
 
 if __name__ == '__main__':
-   n = 5
-   print(prova1(n))
-   #percMat(graf,n)
-#    print(prova1(n))
-#    print(len(set(prova1(n))))
+   n = 250
+   start = time()
+   percorsoCavallo(n)
+   end = time()
+   print(end-start)
