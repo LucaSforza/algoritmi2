@@ -2,3 +2,5 @@
 draw/saved/
 dist/
 __pycache__/
+*.txt
+*.png

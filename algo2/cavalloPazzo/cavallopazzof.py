@@ -1,6 +1,32 @@
 import sys
-from time import time 
+from img import make_img_from_board
+
 sys.setrecursionlimit(1_100_000)
+
+def print_board(vett,n):
+    sOut = ''
+    cnt = 0
+    for cas in vett:
+        sOut+=str(cas)
+        cnt+=1
+        if cnt == n:
+            sOut+='\n'
+            cnt = 0
+    print(sOut)
+    return 
+
+def save_board(vett,n,nomeFile):
+    sOut = ''
+    cnt = 0
+    for cas in vett:
+        sOut+=str(cas)
+        cnt+=1
+        if cnt == n:
+            sOut+='\n'
+            cnt = 0
+    with open('./algo2/cavalloPazzo/txt/'+nomeFile+'.txt', 'a') as f:
+        f.write(sOut+'\n\n')
+    return 
 
 def cordToIdx(n,x,y):
     return x+(y*n)
@@ -45,12 +71,12 @@ def update_cnt(n,x,y,cnt,nelPath,dec):
                         cnt[t_idx]+=1
     return rev
 
-def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,start,timeOut):
-    if time()-start>timeOut:
-        return n
+def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,nomeFile,id=0):
     path.append(pos)
     nelPath[pos]=1
-
+    save_board(nelPath,n,nomeFile)
+    #make_img_from_board(nelPath,n,1000,nomeFile+str(id))
+    id+=1
     deltalen=len(graph)-len(path)
     if not deltalen:
         return path
@@ -61,7 +87,7 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,start,timeOut):
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
         neighbor_list.sort(key = lambda n: move_cnt[n])
         for neighbor in neighbor_list:
-            extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,start,timeOut)
+            extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,nomeFile,id)
             if extended_path: 
                 return extended_path
         
@@ -70,29 +96,21 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,start,timeOut):
     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
     return None
 
-def percorsoCavalloricerca(n,start,timeOut):
+def percorsoCavallo(n):
     graf = creaGrafo(n)
     used = [0]*(n*n)
     move_cnt = make_cnt(n)
-    sol = hamiltonian_path(n,graf,0,[],used,move_cnt,start,timeOut)
-
+    nomeRicerca = '('+str(n)+'*'+str(n)+')ricerca'
+    with open(nomeRicerca, 'w') as f:
+        f.write('\n')
+    sol = hamiltonian_path(n,graf,0,[],used,move_cnt,nomeRicerca)
     return sol
 
-def cercaNumeriCritici(limite,timeOut):
-    numeri = []
-    for n in range(5,limite):
-        print(n)
-        start = time()
-        ret = percorsoCavalloricerca(n,start,timeOut)
-        if type(ret)==int:
-            numeri.append(ret)
-    return numeri
-
-
+#TODO quando metto una casella a 1 nel vettore caratteristico nelPath mi devo assicurare che tutti gli zero che puntano all'uno appena messo abbiamo almeno un altro zero su cui andare 
 if __name__ == '__main__':
-    start = time()
-    print(percorsoCavalloricerca(35,start,100.0))
+    percorsoCavallo(34)
 
-    
-    # num = 250
-    # print(cercaNumeriCritici(num,1.0))
+    # num = 5
+    # vett = [0]*(num*num)
+    # print_board(vett,num)
+
