@@ -1,4 +1,5 @@
 import sys
+from math import sqrt,ceil
 from img import make_img_from_board
 
 sys.setrecursionlimit(1_100_000)
@@ -24,7 +25,7 @@ def save_board(vett,n,nomeFile):
         if cnt == n:
             sOut+='\n'
             cnt = 0
-    with open('./algo2/cavalloPazzo/txt/'+nomeFile+'.txt', 'a') as f:
+    with open(nomeFile, 'a') as f:
         f.write(sOut+'\n\n')
     return 
 
@@ -71,6 +72,11 @@ def update_cnt(n,x,y,cnt,nelPath,dec):
                         cnt[t_idx]+=1
     return rev
 
+def dist_centro(n,pos):
+    x,y = idxToCord(n,pos)
+    centro = n/2
+    return sqrt((x-centro)**2+(y-centro)**2)
+
 def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,nomeFile,id=0):
     path.append(pos)
     nelPath[pos]=1
@@ -85,7 +91,7 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,nomeFile,id=0):
 
     if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-        neighbor_list.sort(key = lambda n: move_cnt[n])
+        neighbor_list.sort(key = lambda neig: (move_cnt[neig]*n)+dist_centro(n,neig))
         for neighbor in neighbor_list:
             extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,nomeFile,id)
             if extended_path: 
@@ -100,7 +106,7 @@ def percorsoCavallo(n):
     graf = creaGrafo(n)
     used = [0]*(n*n)
     move_cnt = make_cnt(n)
-    nomeRicerca = '('+str(n)+'*'+str(n)+')ricerca'
+    nomeRicerca = './algo2/cavalloPazzo/txt/('+str(n)+'*'+str(n)+')ricerca.txt'
     with open(nomeRicerca, 'w') as f:
         f.write('\n')
     sol = hamiltonian_path(n,graf,0,[],used,move_cnt,nomeRicerca)
