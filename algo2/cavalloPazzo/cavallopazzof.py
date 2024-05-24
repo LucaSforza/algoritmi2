@@ -91,7 +91,7 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,nomeFile,id=0):
 
     if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-        neighbor_list.sort(key = lambda neig: (move_cnt[neig]*n)+dist_centro(n,neig))
+        neighbor_list.sort(key = lambda neig: (move_cnt[neig]*n)-dist_centro(n,neig))
         for neighbor in neighbor_list:
             extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,nomeFile,id)
             if extended_path: 
@@ -114,7 +114,7 @@ def percorsoCavallo(n):
 
 #TODO quando metto una casella a 1 nel vettore caratteristico nelPath mi devo assicurare che tutti gli zero che puntano all'uno appena messo abbiamo almeno un altro zero su cui andare 
 if __name__ == '__main__':
-    percorsoCavallo(34)
+    percorsoCavallo(35)
 
     # num = 5
     # vett = [0]*(num*num)
