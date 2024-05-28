@@ -55,6 +55,8 @@ def kappesimo_elemento_albero(nodoAlbero,k,cnt=0):
         
     return nodoAlbero.key,cnt
 
+
+
 if "__main__" == __name__:
     # P = NodoABR2(5, None, 6, NodoABR2(2, 5, 3, NodoABR2(1, 2),NodoABR2(4, 2, 1, NodoABR2(3, 4))),NodoABR2(7, 5, 3, NodoABR2(6, 7),NodoABR2(9, 7, 1, NodoABR2(8, 9))))
     # es3(P, 10)
