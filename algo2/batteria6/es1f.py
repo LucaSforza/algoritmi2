@@ -11,7 +11,7 @@ def es1(n):
     return f1[n-1]+f0[n-1]
 
 
-print(es1(4))
+#print(es1(4))
 
 def es2(n):
     f01 = [0]*n
